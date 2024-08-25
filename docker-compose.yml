@@ -1,5 +1,5 @@
 services:
-  mysql:
+  db:
     image: mysql:8.0
     container_name: taskmanager-db
     environment:
@@ -19,16 +19,16 @@ services:
       timeout: 5s
       retries: 5
 
-  back:
-    image: mischatob/taskmanager-back
-    container_name: taskmanager-back
-    ports:
-      - "8080:8080"
-    depends_on:
-      mysql:
-        condition: service_healthy
-    networks:
-      - mysql_net
+  # back:
+  #   image: mischatob/taskmanager-back
+  #   container_name: taskmanager-back
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   networks:
+  #     - mysql_net
 
 networks:
   mysql_net:

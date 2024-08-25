@@ -1,14 +1,7 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk-slim AS build
 
-# Set the working directory inside the container
-WORKDIR /app
+EXPOSE 8080
 
-# Copy the Maven build files and the source code
-COPY . .
+COPY ./target/taskmanager-0.0.1-SNAPSHOT.jar ROOT.jar
 
-# Run Maven to build the project
-RUN ./mvnw clean package -e
-
-# Specify the command to run your application
-CMD ["java", "-jar", "target/your-application-name.jar"]
+ENTRYPOINT [ "java", "-jar", "ROOT.jar" ]
