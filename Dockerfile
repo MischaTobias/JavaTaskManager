@@ -1,14 +1,14 @@
-# Use a multi-platform supported OpenJDK base image
-FROM arm64v8/eclipse-temurin:17-jdk-jammy
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:17-jdk-slim
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the application's jar file to the container
-COPY target/taskmanager-0.0.1-SNAPSHOT.jar app.jar
+# Copy the Maven build files and the source code
+COPY . .
 
-# Expose the port your Spring Boot application runs on
-EXPOSE 8080
+# Run Maven to build the project
+RUN ./mvnw clean package -e
 
-# Command to run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Specify the command to run your application
+CMD ["java", "-jar", "target/your-application-name.jar"]

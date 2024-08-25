@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql_container
+    container_name: taskmanager-db
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: taskmanagerdb
@@ -19,11 +19,9 @@ services:
       timeout: 5s
       retries: 5
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: taskmanager_app
+  back:
+    image: mischatob/taskmanager-back
+    container_name: taskmanager-back
     ports:
       - "8080:8080"
     depends_on:
