@@ -42,6 +42,11 @@ public class TaskController {
         }
     }
 
+    @GetMapping("/titleLike/{title}")
+    public List<Task> getTaskById(@PathVariable String title) {
+        return taskService.findTasksByTitleContaining(title);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody Task taskDetails) {
         Optional<Task> updatedTask = taskService.updateTask(id, taskDetails);

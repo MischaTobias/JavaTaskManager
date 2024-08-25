@@ -9,6 +9,8 @@ public interface TaskService {
     List<Task> getAllTasks();
 
     Optional<Task> getTaskById(Long id);
+    
+    List<Task> findTasksByTitleContaining(String title);
 
     Task createTask(Task task);
 

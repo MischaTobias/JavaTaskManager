@@ -2,6 +2,7 @@ package com.example.taskmanager.service;
 
 import com.example.taskmanager.model.Task;
 import com.example.taskmanager.repository.TaskRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +49,10 @@ public class TaskServiceImpl implements TaskService {
             taskRepository.delete(task);
             return true;
         }).orElse(false);
+    }
+
+    @Override
+    public List<Task> findTasksByTitleContaining(String title) {
+        return taskRepository.findTasksByTitleContaining(title);
     }
 }
