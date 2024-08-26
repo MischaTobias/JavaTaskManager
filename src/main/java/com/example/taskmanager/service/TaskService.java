@@ -12,6 +12,10 @@ public interface TaskService {
     
     List<Task> findTasksByTitleContaining(String title);
 
+    List<String> getAllTaskTitles();
+
+    List<Task> findTasksByDescriptionContaining(String description);
+
     Task createTask(Task task);
 
     Optional<Task> updateTask(Long id, Task taskDetails);

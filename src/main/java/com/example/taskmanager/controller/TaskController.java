@@ -24,12 +24,6 @@ public class TaskController {
         return taskService.getAllTasks();
     }
 
-    @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
-        Task createdTask = taskService.createTask(task);
-        return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<?> getTaskById(@PathVariable Long id) {
         Optional<Task> task = taskService.getTaskById(id);
@@ -42,9 +36,25 @@ public class TaskController {
         }
     }
 
+    @GetMapping("/titles")
+    public List<String> getTasksTitles() {
+        return taskService.getAllTaskTitles();
+    }
+
     @GetMapping("/titleLike/{title}")
-    public List<Task> getTaskById(@PathVariable String title) {
+    public List<Task> getTasksByTitle(@PathVariable String title) {
         return taskService.findTasksByTitleContaining(title);
+    }
+
+    @GetMapping("/descriptionLike/{description}")
+    public List<Task> getTasksByDescription(@PathVariable String description) {
+        return taskService.findTasksByDescriptionContaining(description);
+    }
+
+    @PostMapping
+    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+        Task createdTask = taskService.createTask(task);
+        return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -59,7 +69,6 @@ public class TaskController {
         }
     }
     
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTask(@PathVariable Long id) {
         boolean isDeleted = taskService.deleteTask(id);

@@ -2,7 +2,11 @@ package com.example.taskmanager.service;
 
 import com.example.taskmanager.model.Task;
 import com.example.taskmanager.repository.TaskRepository;
+import com.example.taskmanager.specification.TaskSpecification;
 
+import java.util.stream.Collectors;
+
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,5 +58,20 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> findTasksByTitleContaining(String title) {
         return taskRepository.findTasksByTitleContaining(title);
+    }
+
+    @Override
+    public List<String> getAllTaskTitles() {
+        List<Task> tasks = taskRepository.findAll();
+        
+        return tasks.stream()
+                    .map(Task::getTitle)
+                    .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Task> findTasksByDescriptionContaining(String description) {
+        Specification<Task> spec = TaskSpecification.hasDescriptionLike(description);
+        return taskRepository.findAll(spec);
     }
 }
