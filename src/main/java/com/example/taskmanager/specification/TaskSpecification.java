@@ -1,4 +1,4 @@
-package com.example.taskmanager.specification;  // Replace with your actual package name
+package com.example.taskmanager.specification;
 
 import org.springframework.data.jpa.domain.Specification;
 
